@@ -11,6 +11,7 @@ const { ensureCoreDirs, exportDir, uploadDir } = require('./src/constants');
 const tasksRouter = require('./src/routes.tasks');
 const samplesRouter = require('./src/routes.samples');
 const groupNamesRouter = require('./src/routes.groupNames');
+const advancedExportRouter = require('./src/routes.advancedExport');
 const { exportJobs, ensureExportJobsStore, loadPersistedJobs, persistExportJobs, runExportJob } = require('./src/exportJobs');
 
 const app = express();
@@ -43,6 +44,7 @@ app.use('/api/tasks', tasksRouter);
 
 app.use('/api/group-names', groupNamesRouter);
 app.use('/api/samples', samplesRouter);
+app.use('/api/export', advancedExportRouter);
 
 // Export current instrument state into a JUCE-ready project scaffold (assets + mapping)
 app.post('/api/export', (req, res, next) => {
