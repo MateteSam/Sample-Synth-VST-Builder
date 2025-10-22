@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Improved UI Design Tool - Standalone Demo</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #0b1220 0%, #1a2332 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 40px 20px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      border: 1px solid rgba(0, 234, 255, 0.2);
+    }
+    
+    .header h1 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, #00eaff, #4b79ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .header p {
+      font-size: 18px;
+      color: #93a4b8;
+      margin-bottom: 24px;
+    }
+    
+    .improvements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    
+    .improvement-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(0, 234, 255, 0.15);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.3s ease;
+    }
+    
+    .improvement-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(0, 234, 255, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 234, 255, 0.15);
+    }
+    
+    .improvement-card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: #00eaff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .improvement-card ul {
+      list-style: none;
+      margin-top: 12px;
+    }
+    
+    .improvement-card li {
+      padding: 8px 0;
+      padding-left: 20px;
+      position: relative;
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+    
+    .improvement-card li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #10b981;
+      font-weight: bold;
+    }
+    
+    .demo-section {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(0, 234, 255, 0.2);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 40px;
+    }
+    
+    .demo-section h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #00eaff;
+    }
+    
+    .widget-demo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .widget {
+      background: white;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      padding: 16px;
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.06);
+      cursor: pointer;
+    }
+    
+    .widget:hover {
+      border-color: rgba(75,121,255,0.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+    
+    .widget h4 {
+      color: #0b1220;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    
+    .slider-control {
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, #e5e7eb 0%, #4b79ff 50%, #e5e7eb 50%);
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    
+    .knob-demo {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+      border: 3px solid #4b79ff;
+      border-radius: 50%;
+      margin: 0 auto;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(75, 121, 255, 0.2);
+    }
+    
+    .knob-demo::after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 25px;
+      background: #4b79ff;
+      border-radius: 999px;
+    }
+    
+    .cta-section {
+      text-align: center;
+      margin-top: 60px;
+      padding: 40px;
+      background: linear-gradient(135deg, rgba(0, 234, 255, 0.1), rgba(75, 121, 255, 0.1));
+      border-radius: 12px;
+      border: 1px solid rgba(0, 234, 255, 0.3);
+    }
+    
+    .cta-button {
+      display: inline-block;
+      padding: 16px 40px;
+      background: linear-gradient(90deg, #00eaff, #4b79ff);
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(0, 234, 255, 0.3);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0, 234, 255, 0.4);
+    }
+    
+    .version-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      background: rgba(16, 185, 129, 0.2);
+      color: #10b981;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎨 Improved UI Design Tool</h1>
+      <p>Production-Ready Design & Test Pages</p>
+      <span class="version-badge">✨ Latest Build</span>
+    </div>
+    
+    <div class="improvements-grid">
+      <div class="improvement-card">
+        <h3>🔧 Fixed Resize Handles</h3>
+        <ul>
+          <li>Zoom-aware resize calculations</li>
+          <li>Free resize (width & height independent)</li>
+          <li>Proper canvas bounds clamping</li>
+          <li>Smooth interaction at any zoom level</li>
+          <li>Minimum size enforcement (40×24px)</li>
+        </ul>
+      </div>
+      
+      <div class="improvement-card">
+        <h3>🎯 Perfect Design/Test Sync</h3>
+        <ul>
+          <li>Shared WidgetRenderer component</li>
+          <li>Identical visual appearance</li>
+          <li>1:1 design-to-runtime parity</li>
+          <li>All widget types supported</li>
+          <li>Consistent behavior everywhere</li>
+        </ul>
+      </div>
+      
+      <div class="improvement-card">
+        <h3>✨ Enhanced Interactions</h3>
+        <ul>
+          <li>Marquee selection with visual overlay</li>
+          <li>Multi-select with Ctrl/Cmd+Click</li>
+          <li>Drag state visual feedback</li>
+          <li>Keyboard shortcuts (Escape, Delete)</li>
+          <li>Snap guides ready for alignment</li>
+        </ul>
+      </div>
+      
+      <div class="improvement-card">
+        <h3>🎨 Visual Polish</h3>
+        <ul>
+          <li>Modern shadow layers</li>
+          <li>Smooth transitions</li>
+          <li>Hover state enhancements</li>
+          <li>Inline label editing</li>
+          <li>Responsive widget sizing</li>
+        </ul>
+      </div>
+      
+      <div class="improvement-card">
+        <h3>📐 Layout Fixes</h3>
+        <ul>
+          <li>No margin overflow issues</li>
+          <li>Widgets stay in canvas bounds</li>
+          <li>Proper zoom scaling</li>
+          <li>Correct position calculations</li>
+          <li>Grid snapping improvements</li>
+        </ul>
+      </div>
+      
+      <div class="improvement-card">
+        <h3>🚀 Performance</h3>
+        <ul>
+          <li>Optimized widget rendering</li>
+          <li>Efficient drag calculations</li>
+          <li>Shared component architecture</li>
+          <li>Reduced code duplication</li>
+          <li>Better state management</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h2>🎹 Widget Examples</h2>
+      <p style="color: #93a4b8; margin-bottom: 20px;">All widgets now render identically in Design and Test pages</p>
+      
+      <div class="widget-demo">
+        <div class="widget">
+          <h4>Slider Control</h4>
+          <div style="margin-top: 8px; color: #64748b; font-size: 12px;">Value: 0.50</div>
+          <div class="slider-control" style="margin-top: 12px;"></div>
+        </div>
+        
+        <div class="widget">
+          <h4>Knob Control</h4>
+          <div style="margin-top: 8px; color: #64748b; font-size: 12px;">Value: 0.75</div>
+          <div class="knob-demo" style="margin-top: 12px;"></div>
+        </div>
+        
+        <div class="widget">
+          <h4>Toggle Switch</h4>
+          <div style="margin-top: 8px; color: #64748b; font-size: 12px;">State: On</div>
+          <div style="margin-top: 12px; height: 24px; width: 48px; background: #4b79ff; border-radius: 12px; position: relative;">
+            <div style="position: absolute; right: 2px; top: 2px; width: 20px; height: 20px; background: white; border-radius: 50%;"></div>
+          </div>
+        </div>
+        
+        <div class="widget">
+          <h4>Button</h4>
+          <div style="margin-top: 8px; color: #64748b; font-size: 12px;">State: Idle</div>
+          <button style="margin-top: 12px; width: 100%; padding: 10px; background: #4b79ff; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Press</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h2>📋 Key Improvements Summary</h2>
+      <div style="background: rgba(0, 234, 255, 0.05); padding: 24px; border-radius: 8px; border: 1px solid rgba(0, 234, 255, 0.2); margin-top: 20px;">
+        <h3 style="color: #00eaff; margin-bottom: 16px;">What Was Fixed:</h3>
+        <ol style="list-style-position: inside; color: #cbd5e1; line-height: 2;">
+          <li><strong>Resize Handles:</strong> Now account for zoom level in all calculations (dx/zoom, dy/zoom)</li>
+          <li><strong>Free Resize:</strong> Removed forced aspect ratio locking - resize freely in both dimensions</li>
+          <li><strong>Canvas Bounds:</strong> Proper clamping with zoom: canvasW = rect.width / zoom</li>
+          <li><strong>Widget Renderer:</strong> Created shared component used by both Design and Test pages</li>
+          <li><strong>Visual Parity:</strong> Test page now displays EXACTLY as designed - no surprises</li>
+          <li><strong>Drag Improvements:</strong> isDragging state with visual feedback (opacity, shadow, cursor)</li>
+          <li><strong>Marquee Selection:</strong> Visual selection rectangle with widget intersection detection</li>
+          <li><strong>Keyboard Shortcuts:</strong> Escape to deselect, Delete to remove, Spacebar for pan mode</li>
+          <li><strong>Layout Issues:</strong> Fixed all margin overflow - widgets stay within bounds</li>
+          <li><strong>Responsive Sizing:</strong> Knobs, sliders, faders scale properly based on widget dimensions</li>
+        </ol>
+      </div>
+    </div>
+    
+    <div class="cta-section">
+      <h2 style="font-size: 32px; margin-bottom: 16px;">🎉 Ready to Test!</h2>
+      <p style="font-size: 18px; color: #93a4b8; margin-bottom: 32px;">
+  The development server is running at <strong id="dev-url">http://localhost:5173/</strong>
+      </p>
+      <a id="dev-link" href="http://localhost:5173/" class="cta-button" target="_blank">
+        Open Design Tool →
+      </a>
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(0, 234, 255, 0.2);">
+        <h3 style="color: #00eaff; margin-bottom: 12px;">Testing Guide:</h3>
+        <ol style="text-align: left; display: inline-block; color: #cbd5e1; line-height: 2;">
+          <li>Navigate to the <strong>Design</strong> page</li>
+          <li>Add widgets from the left panel</li>
+          <li>Try resizing at different zoom levels (works perfectly now!)</li>
+          <li>Drag widgets around - they stay within bounds</li>
+          <li>Try marquee selection by clicking and dragging on empty canvas</li>
+          <li>Go to the <strong>Test</strong> page to see your design rendered identically</li>
+          <li>Compare Design vs Test - they should look EXACTLY the same</li>
+        </ol>
+      </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 40px; padding: 20px; color: #64748b; font-size: 14px;">
+      <p>Built with React + Vite • Improved UI • Production Ready</p>
+      <p style="margin-top: 8px;">All fixes applied and tested ✓</p>
+    </div>
+  </div>
+  
+  <script>
+    // Add lightweight interactivity to demo tiles
+    document.querySelectorAll('.widget').forEach(widget => {
+      widget.addEventListener('click', () => {
+        widget.style.borderColor = 'rgba(75,121,255,0.5)';
+        setTimeout(() => { widget.style.borderColor = 'transparent'; }, 300);
+      });
+    });
+
+    // Optional: Load mapping.json?source=URL to apply exported theme/canvas
+    // Usage: export_standalone_demo.html?source=http://localhost:3000/export/<stamp>/mapping.json
+    (async function applyExportedThemeIfProvided(){
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const src = params.get('source');
+        if (!src) return;
+        const res = await fetch(src);
+        if (!res.ok) throw new Error('Failed to fetch mapping.json');
+        const map = await res.json();
+        const ui = map?.ui || {};
+        const theme = ui.theme || {};
+        const canvas = ui.canvas || {};
+
+        // Apply theme to document root as CSS variables similar to app
+        const style = document.documentElement.style;
+        if (theme.accent) style.setProperty('--accent', theme.accent);
+        if (theme.primary) style.setProperty('--accent-2', theme.primary);
+        if (canvas.bgColor) style.setProperty('--bg', canvas.bgColor);
+
+        // Apply background of the page to match exported canvas
+        if (canvas.bgColor) {
+          document.body.style.background = canvas.bgColor;
+        }
+
+        // Create overlay containers to show bg image/texture under demo sections
+        if (canvas.bgUrl || canvas.textureUrl) {
+          const layerHost = document.createElement('div');
+          layerHost.style.position = 'fixed';
+          layerHost.style.inset = '0';
+          layerHost.style.zIndex = '-1';
+          document.body.appendChild(layerHost);
+
+          if (canvas.bgUrl) {
+            const bg = document.createElement('div');
+            bg.style.position = 'absolute';
+            bg.style.inset = '0';
+            bg.style.backgroundImage = `url(${canvas.bgUrl})`;
+            bg.style.backgroundSize = 'cover';
+            bg.style.backgroundPosition = 'center';
+            bg.style.backgroundRepeat = 'no-repeat';
+            layerHost.appendChild(bg);
+          }
+          if (canvas.textureUrl) {
+            const tx = document.createElement('div');
+            tx.style.position = 'absolute';
+            tx.style.inset = '0';
+            tx.style.backgroundImage = `url(${canvas.textureUrl})`;
+            tx.style.backgroundSize = 'cover';
+            tx.style.backgroundPosition = 'center';
+            tx.style.backgroundRepeat = 'repeat';
+            tx.style.opacity = '0.25';
+            tx.style.mixBlendMode = 'overlay';
+            layerHost.appendChild(tx);
+          }
+        }
+      } catch (e) {
+        console.warn('Standalone demo: failed to apply exported theme/canvas:', e);
+      }
+    })();
+
+    // Auto-open design tool hint
+    (function setDevLink(){
+      const params = new URLSearchParams(window.location.search);
+      const port = params.get('port') || '5173';
+      const url = `http://localhost:${port}/`;
+      const a = document.getElementById('dev-link');
+      const s = document.getElementById('dev-url');
+      if (a) a.href = url;
+      if (s) s.textContent = url;
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        console.log(`✨ Development server detected at ${url}`);
+        console.log('🎨 Ready to test the improved Design & Test pages!');
+      }
+    })();
+  </script>
+</body>
+</html>
