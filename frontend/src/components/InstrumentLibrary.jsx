@@ -16,7 +16,7 @@ export default function InstrumentLibrary() {
         <strong>Instrument Library</strong>
         <select value={selected || ''} onChange={(e) => setSelectedInstrument(e.target.value || null)}>
           <option value="">All Instruments</option>
-          {options.map((opt) => (
+          {(options?.instruments || []).map((opt) => (
             <option key={opt.value} value={opt.value}>{opt.label} ({opt.count})</option>
           ))}
         </select>
