@@ -16,9 +16,6 @@ import Design from './pages/Design';
 import Live from './pages/Live';
 import Test from './pages/Test';
 
-// Import state
-import { useInstrument } from './state/instrument.jsx';
-
 /**
  * Main Application Component
  * Manages tab state, audio engine, and page routing
@@ -31,9 +28,6 @@ const ProfessionalApp = () => {
   const engineRef = useRef(null);
   const [samples, setSamples] = useState([]);
   const [mode, setMode] = useState('sample');
-
-  // Get instrument state
-  const instrument = useInstrument();
 
   // Initialize audio engine on mount
   useEffect(() => {
