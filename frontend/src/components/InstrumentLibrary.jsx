@@ -34,7 +34,7 @@ export default function InstrumentLibrary() {
         <div className="muted">No samples loaded yet.</div>
       ) : (
         <div className="row wrap" style={{ gap: 12 }}>
-          {options.map((opt) => (
+          {(options?.instruments || []).map((opt) => (
             <div key={opt.value} className="card compact" style={{ minWidth: 240 }}>
               <div className="row" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
                 <strong>{opt.label}</strong>
