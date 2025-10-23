@@ -10,6 +10,7 @@ import {
   ProfessionalMainContent, 
   ProfessionalLayout 
 } from './components/ProfessionalLayout';
+import { ToastProvider } from './components/ToastNotification';
 import { PremiumButton, PremiumCard, PremiumBadge } from './components/ProfessionalUISystem';
 import EnhancedTemplateExportPanel from './components/EnhancedTemplateExportPanel';
 import { 
@@ -257,7 +258,8 @@ const ProfessionalApp = () => {
   };
 
   return (
-    <ProfessionalLayout>
+    <ToastProvider>
+      <ProfessionalLayout>
       <ProfessionalHeader 
         onMenuToggle={handleSidebarToggle}
         isMenuOpen={sidebarOpen}
@@ -294,7 +296,8 @@ const ProfessionalApp = () => {
           }
         }
       `}</style>
-    </ProfessionalLayout>
+      </ProfessionalLayout>
+    </ToastProvider>
   );
 };
 

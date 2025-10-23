@@ -230,14 +230,6 @@ import { Confetti } from './Confetti';const EnhancedTemplateExportPanel = ({ des
             workflow: result.data.workflow,
             timestamp: new Date().toLocaleTimeString()
           });
-
-          // Show success toast and confetti
-          addToast('Templates exported successfully! 🎉', { 
-            type: 'success',
-            duration: 5000 
-          });
-          setShowConfetti(true);
-          setTimeout(() => setShowConfetti(false), 1500);
         } else {
           throw new Error(result.error || 'Export failed');
         }
@@ -251,7 +243,6 @@ import { Confetti } from './Confetti';const EnhancedTemplateExportPanel = ({ des
         error: error.message,
         timestamp: new Date().toLocaleTimeString()
       });
-      addToast(`Export failed: ${error.message}`, { type: 'error' });
     } finally {
       setTimeout(() => {
         setIsExporting(false);
@@ -380,7 +371,6 @@ import { Confetti } from './Confetti';const EnhancedTemplateExportPanel = ({ des
 
   return (
     <div className={`enhanced-template-export ${className}`}>
-      <Confetti isVisible={showConfetti} duration={1500} />
       {/* Header Section */}
       <PremiumCard variant="premium" className="header-card">
         <div className="header-content">
