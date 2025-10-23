@@ -33,13 +33,56 @@ const ProfessionalApp = () => {
   useEffect(() => {
     const initEngine = async () => {
       try {
-        // Initialize audio engine (placeholder - would load real audio engine)
+        // Initialize audio engine (comprehensive mock with all necessary methods)
         console.log('🎵 Audio engine initializing...');
+        
+        // Create mock samples array
+        const mockSamples = Array(16).fill(null).map(() => ({
+          name: 'Sample',
+          buffer: new AudioBuffer({ length: 44100, sampleRate: 44100 }),
+          duration: 1.0
+        }));
+
         engineRef.current = {
+          // Basic properties
           isActive: true,
           sampleRate: 44100,
-          enabled: true
+          enabled: true,
+          samples: mockSamples,
+          
+          // Synth control methods
+          setEnvelope: (env) => console.log('Envelope set:', env),
+          setFilter: (filter) => console.log('Filter set:', filter),
+          setDelay: (delay) => console.log('Delay set:', delay),
+          setReverbMix: (mix) => console.log('Reverb mix set:', mix),
+          setTranspose: (transpose) => console.log('Transpose set:', transpose),
+          setGlide: (glide) => console.log('Glide set:', glide),
+          setModRate: (rate) => console.log('Mod rate set:', rate),
+          setMasterGain: (gain) => console.log('Master gain set:', gain),
+          
+          // Note control methods
+          noteOn: (midi, velocity = 127) => console.log(`Note on: MIDI ${midi}, velocity ${velocity}`),
+          noteOff: (midi) => console.log(`Note off: MIDI ${midi}`),
+          stopAllVoices: (immediate = false) => console.log('Stop all voices', immediate),
+          noteOnCategory: (midi, velocity, category) => console.log(`Note on category: ${category}`, midi, velocity),
+          
+          // Additional methods that may be called
+          setGain: (gain) => console.log('Gain set:', gain),
+          setSample: (index, buffer) => console.log('Sample set:', index),
+          recordStart: () => console.log('Recording started'),
+          recordStop: () => console.log('Recording stopped'),
+          playRecording: () => console.log('Playing recording'),
+          
+          // Manifest for UI references
+          manifest: {
+            engine: {
+              sustain: true,
+              sostenuto: true,
+              velocityCurve: 'linear'
+            }
+          }
         };
+        
         setIsLoading(false);
         console.log('✅ Audio engine ready');
       } catch (error) {

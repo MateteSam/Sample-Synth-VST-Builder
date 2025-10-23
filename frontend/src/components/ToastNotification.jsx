@@ -79,7 +79,7 @@ const ToastContainer = ({ toasts, onRemove }) => {
         />
       ))}
 
-      <style jsx>{`
+      <style>{`
         .toast-container {
           position: fixed;
           bottom: 20px;
@@ -143,7 +143,7 @@ const Toast = ({ id, message, type, action, onClose }) => {
         <X size={16} />
       </button>
 
-      <style jsx>{`
+      <style>{`
         .toast {
           background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
           border: 1px solid rgba(255, 255, 255, 0.1);
