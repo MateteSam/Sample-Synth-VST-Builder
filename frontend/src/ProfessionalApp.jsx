@@ -37,10 +37,17 @@ const ProfessionalApp = () => {
         console.log('🎵 Audio engine initializing...');
         
         // Create mock samples array
-        const mockSamples = Array(16).fill(null).map(() => ({
-          name: 'Sample',
+        const mockSamples = Array(16).fill(null).map((_, i) => ({
+          id: `sample-${i}`,
+          name: `Sample ${i + 1}`,
           buffer: new AudioBuffer({ length: 44100, sampleRate: 44100 }),
-          duration: 1.0
+          duration: 1.0,
+          rootMidi: 60,
+          noteLow: 0,
+          noteHigh: 127,
+          velLow: 0,
+          velHigh: 127,
+          category: 'Uncategorized'
         }));
 
         engineRef.current = {
@@ -73,12 +80,30 @@ const ProfessionalApp = () => {
           recordStop: () => console.log('Recording stopped'),
           playRecording: () => console.log('Playing recording'),
           
+          // Sample management methods
+          getSamples: function() { return this.samples || []; },
+          addSample: function(sample) { 
+            if (!this.samples) this.samples = [];
+            this.samples.push({ ...sample, id: crypto.randomUUID() });
+          },
+          updateSample: function(id, updates) {
+            const sample = this.samples?.find(s => s.id === id);
+            if (sample) Object.assign(sample, updates);
+          },
+          removeSample: function(id) {
+            if (this.samples) this.samples = this.samples.filter(s => s.id !== id);
+          },
+
           // Manifest for UI references
           manifest: {
             engine: {
               sustain: true,
               sostenuto: true,
               velocityCurve: 'linear'
+            },
+            ui: {
+              groupNames: {},
+              selectedInstrument: null
             }
           }
         };
