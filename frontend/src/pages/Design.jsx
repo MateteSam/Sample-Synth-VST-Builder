@@ -60,6 +60,12 @@ export default function Design() {
   const [clipboard, setClipboard] = useState([]);
   const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [components, setComponents] = useState([
+    // Default starting components
+    { id: 'slider-1', type: 'slider', name: 'Master Volume', x: 50, y: 50, w: 200, h: 40 },
+    { id: 'knob-1', type: 'knob', name: 'Filter Cutoff', x: 300, y: 50, w: 100, h: 100 },
+    { id: 'meter-1', type: 'meter', name: 'Output Level', x: 50, y: 150, w: 60, h: 200 },
+  ]);
 
   // ============ LIBRARY STATE ============
   const [libraryQuery, setLibraryQuery] = useState('');
@@ -96,7 +102,7 @@ export default function Design() {
   }, [favorites]);
 
   // ============ CANVAS OPERATIONS ============
-  const canvas = manifest?.ui?.canvas || {};
+  const canvas = manifest?.ui?.canvas || { components: [] };
 
   const addToHistory = (state) => {
     setHistory((prev) => [...prev.slice(0, historyIndex + 1), state]);
@@ -473,7 +479,7 @@ export default function Design() {
             style={{ transform: `scale(${zoom})`, transformOrigin: '0 0' }}
           >
             <DesignCanvas
-              widgets={canvas.components || []}
+              widgets={components}
               selectedIds={selectedIds}
               setSelectedIds={setSelectedIds}
               onUpdateWidget={() => {}}
@@ -605,7 +611,7 @@ export default function Design() {
             </>
           )}
           <span className="status-text">
-            Components: {canvas.components?.length || 0}
+            Components: {components?.length || 0}
           </span>
           <span className="status-divider">•</span>
           <span className="status-text">Zoom: {Math.round(zoom * 100)}%</span>
