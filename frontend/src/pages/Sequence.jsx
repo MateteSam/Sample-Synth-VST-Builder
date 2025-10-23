@@ -59,10 +59,10 @@ export default function Sequence({ engine }) {
   
   // Auto-select first instrument for SAMPLE mode
   useEffect(() => {
-    if (mode === 'sample' && !selectedInstrument && options.instruments.length > 0) {
+    if (mode === 'sample' && !selectedInstrument && options?.instruments?.length > 0) {
       setSelectedInstrument(options.instruments[0].value);
     }
-  }, [mode, selectedInstrument, options.instruments]);
+  }, [mode, selectedInstrument, options?.instruments]);
   
   // Sequencer engine
   const timerRef = useRef(null);
@@ -385,7 +385,7 @@ export default function Sequence({ engine }) {
                     onChange={(e) => setSelectedInstrument(e.target.value)}
                   >
                     <option value="">-- Select Instrument --</option>
-                    {options.instruments.map((inst) => (
+                    {(options?.instruments || []).map((inst) => (
                       <option key={inst.value} value={inst.value}>
                         {inst.label}
                       </option>
@@ -640,7 +640,7 @@ export default function Sequence({ engine }) {
                     className="track-instrument"
                   >
                     <option value="">-- Instrument --</option>
-                    {options.instruments.map((inst) => (
+                    {(options?.instruments || []).map((inst) => (
                       <option key={inst.value} value={inst.value}>
                         {inst.label}
                       </option>
