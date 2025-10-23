@@ -473,11 +473,18 @@ export default function Design() {
             style={{ transform: `scale(${zoom})`, transformOrigin: '0 0' }}
           >
             <DesignCanvas
-              manifest={manifest}
-              setManifest={setManifest}
+              widgets={canvas.components || []}
               selectedIds={selectedIds}
               setSelectedIds={setSelectedIds}
-              gridSize={snapToGrid ? gridSize : 1}
+              onUpdateWidget={() => {}}
+              onWidgetMove={() => {}}
+              onWidgetResize={() => {}}
+              canvas={canvas}
+              engine={engine}
+              showGrid={true}
+              showLabels={true}
+              snap={snapToGrid}
+              gridSize={gridSize}
             />
           </div>
         </div>

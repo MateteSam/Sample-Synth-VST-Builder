@@ -45,7 +45,7 @@ export default function DesignCanvas({
         const minY = Math.min(dragSelection.startY, dragSelection.endY);
         const maxY = Math.max(dragSelection.startY, dragSelection.endY);
         
-        const selected = widgets.filter(w => {
+        const selected = safeWidgets.filter(w => {
           return w.x >= minX && w.x + w.w <= maxX &&
                  w.y >= minY && w.y + w.h <= maxY;
         }).map(w => w.id);
@@ -67,7 +67,7 @@ export default function DesignCanvas({
     const verticalLines = [];
     const threshold = 5;
 
-    widgets.forEach(other => {
+    (safeWidgets || []).forEach(other => {
       if (other.id === widget.id || !other.visible) return;
       
       // Vertical alignment (left, center, right)
@@ -102,9 +102,10 @@ export default function DesignCanvas({
     setGuideLinesV([]);
   };
 
-  // Calculate canvas size to fit all widgets
-  const maxX = Math.max(1200, ...widgets.map(w => (w.x + w.w)));
-  const maxY = Math.max(800, ...widgets.map(w => (w.y + w.h)));
+  // Calculate canvas size to fit all widgets (with safety fallback)
+  const safeWidgets = widgets || [];
+  const maxX = Math.max(1200, ...(safeWidgets.length > 0 ? safeWidgets.map(w => (w.x + w.w)) : [1200]));
+  const maxY = Math.max(800, ...(safeWidgets.length > 0 ? safeWidgets.map(w => (w.y + w.h)) : [800]));
 
   return (
     <div 
