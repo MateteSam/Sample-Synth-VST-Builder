@@ -1,3 +1,6 @@
+/* Import Professional Design System */
+@import './styles/professional.css';
+
 .design-canvas .canvas-bg-image { position: absolute; inset: 0; background-size: cover; background-position: center; background-repeat: no-repeat; pointer-events: none; }
 .design-canvas .canvas-texture { position: absolute; inset: 0; background-size: cover; background-position: center; background-repeat: no-repeat; pointer-events: none; opacity: 0.25; mix-blend-mode: overlay; }
 .design-canvas .canvas-grid { position: absolute; inset: 0; pointer-events: none; }
