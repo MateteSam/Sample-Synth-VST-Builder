@@ -26,5 +26,8 @@ export function getDisplayName(category, names = {}) {
 
 export function getGroupOptions(samples = [], names = {}) {
   const groups = groupSamplesByCategory(samples);
-  return groups.map((g) => ({ value: g.cat, label: getDisplayName(g.cat, names), count: g.list.length }));
+  return {
+    instruments: groups.map((g) => ({ value: g.cat, label: getDisplayName(g.cat, names), count: g.list.length })),
+    categories: groups.map((g) => ({ value: g.cat, label: getDisplayName(g.cat, names), count: g.list.length }))
+  };
 }

@@ -46,9 +46,9 @@ export default function Map({ engine, samples, setSamples }) {
       <div className="space" />
       <div className="row" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
         <strong>Instrument Selection</strong>
-        <select value={selectedInstrument || ''} onChange={(e) => setSelectedInstrument(e.target.value || null)}>
+        <select value={selectedInstrument || ''} onChange={(e) => setSelectedInstrument(e.target.value || null)}>   
           <option value="">All Instruments</option>
-          {options.map((opt) => (
+          {(options.categories || options || []).map((opt) => (
             <option key={opt.value} value={opt.value}>{opt.label} ({opt.count})</option>
           ))}
         </select>
